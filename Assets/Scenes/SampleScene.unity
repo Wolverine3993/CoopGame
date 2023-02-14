@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 1190942518}
   - component: {fileID: 1190942517}
   - component: {fileID: 1190942516}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,11 +288,11 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ecc62f4d7f6bba0499f566d5ead02b0b, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1190942517
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -331,6 +331,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2f02a6442761443b05e7d80ac234bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 4
+  jumpHeight: 5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   playerNumber: 0
 --- !u!212 &1190942519
 SpriteRenderer:
@@ -413,7 +418,7 @@ GameObject:
   - component: {fileID: 1482302045}
   - component: {fileID: 1482302044}
   - component: {fileID: 1482302043}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1191,7 +1196,7 @@ GameObject:
   - component: {fileID: 1641923950}
   - component: {fileID: 1641923949}
   - component: {fileID: 1641923948}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1240,11 +1245,11 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ecc62f4d7f6bba0499f566d5ead02b0b, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1641923950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1257,6 +1262,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2f02a6442761443b05e7d80ac234bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 4
+  jumpHeight: 5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   playerNumber: 1
 --- !u!212 &1641923951
 SpriteRenderer:
