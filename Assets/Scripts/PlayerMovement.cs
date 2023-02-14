@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] float moveSpeed;
+    [SerializeField] float jumpHeight;
     enum PlayerNumber
     {
         Player1,
@@ -19,6 +21,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(playerNumber.ToString());
+    }
+    void Player1Move() 
+    { 
+    
     }
 }
