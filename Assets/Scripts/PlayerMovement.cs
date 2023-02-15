@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     float yInput;
     Rigidbody2D rb;
     Collider2D collander;
+    bool canJump = true;
     private delegate void HandleMove();
     HandleMove Move;
     enum PlayerNumber
@@ -38,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Move();
-        if(TouchingGround() && yInput > 0)
+        if(TouchingGround() && yInput > 0 && canJump)
             Jump();
     }
     void Player1Move() 
@@ -60,5 +61,21 @@ public class PlayerMovement : MonoBehaviour
     bool TouchingGround()
     {
         return Physics2D.BoxCast(new Vector2(transform.position.x, transform.position.y - collander.bounds.size.y / 2), new Vector2(collander.bounds.size.x - 0.1f, 0.1f), 0, Vector2.down, 0.1f, groundLayer) != false;        
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && collision.transform.position.y > transform.position.y + collander.bounds.size.y / 2) 
+        {
+            Rigidbody2D collRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            collRb.mass = 0.00001f;
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Rigidbody2D collRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            collRb.mass = 1f;
+        }
     }
 }
