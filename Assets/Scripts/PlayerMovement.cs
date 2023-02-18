@@ -7,13 +7,17 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
+    [SerializeField] float slowMoveSpeed;
+    float _moveSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] LayerMask groundLayer;
     float xInput;
     float yInput;
+    public bool onPlayer = false;
     Rigidbody2D rb;
     Collider2D collander;
     bool canJump = true;
+    float addVelocityX;
     private delegate void HandleMove();
     HandleMove Move;
     enum PlayerNumber
@@ -24,9 +28,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] PlayerNumber playerNumber = new PlayerNumber();
     void Start()
     {
+        _moveSpeed = moveSpeed;
         Move = Player1Move;
         if (playerNumber.ToString() == "Player2")
         {
+            Debug.Log(playerNumber.ToString());
             Move = Player2Move;
             groundLayer += LayerMask.GetMask("Player1");
         }
@@ -42,17 +48,27 @@ public class PlayerMovement : MonoBehaviour
         if(TouchingGround() && yInput > 0 && canJump)
             Jump();
     }
-    void Player1Move() 
+    void Player1Move()
     {
         xInput = Input.GetAxisRaw("Player1Horizontal");
         yInput = Input.GetAxisRaw("Player1Vertical");
-        rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+        if (!onPlayer)
+        {
+            rb.velocity = new Vector2(xInput * _moveSpeed, rb.velocity.y);
+            return;
+        }
+        rb.velocity = new Vector2(xInput * _moveSpeed + addVelocityX, rb.velocity.y);
     }
     void Player2Move()
     {
         xInput = Input.GetAxisRaw("Player2Horizontal");
         yInput = Input.GetAxisRaw("Player2Vertical");
-        rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
+        if (!onPlayer)
+        {
+            rb.velocity = new Vector2(xInput * _moveSpeed, rb.velocity.y);
+            return;
+        }
+        rb.velocity = new Vector2(xInput * _moveSpeed + addVelocityX, rb.velocity.y);
     }
     void Jump()
     {
@@ -68,6 +84,23 @@ public class PlayerMovement : MonoBehaviour
         {
             Rigidbody2D collRb = collision.gameObject.GetComponent<Rigidbody2D>();
             collRb.mass = 0.00001f;
+            _moveSpeed = slowMoveSpeed;
+            collision.gameObject.GetComponent<PlayerMovement>().onPlayer = true;
+        }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && collision.transform.position.y < transform.position.y + collander.bounds.size.y / 2)
+        {
+            Rigidbody2D collRb = collision.gameObject.GetComponent<Rigidbody2D>();
+            collRb.mass = 1f;
+            _moveSpeed = moveSpeed;
+            collision.gameObject.GetComponent<PlayerMovement>().onPlayer = false;
+        }
+        else if(collision.gameObject.CompareTag("Player") && collision.transform.position.y > transform.position.y + collander.bounds.size.y / 2)
+        {
+            collision.gameObject.GetComponent<PlayerMovement>().onPlayer = true;
+            collision.gameObject.GetComponent<PlayerMovement>().SetVelocity(rb.velocity.x);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -76,6 +109,12 @@ public class PlayerMovement : MonoBehaviour
         {
             Rigidbody2D collRb = collision.gameObject.GetComponent<Rigidbody2D>();
             collRb.mass = 1f;
+            _moveSpeed = moveSpeed;
+            collision.gameObject.GetComponent<PlayerMovement>().onPlayer = false;
         }
+    }
+    public void SetVelocity(float objectVelX)
+    {
+        addVelocityX = objectVelX;
     }
 }
