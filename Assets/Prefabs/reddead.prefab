@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 828799028688372054, guid: 3444ccd1ca0feed429842895e7f856cf, type: 3}
   respawn: 115
+  playerVal: 0
 --- !u!61 &2222067503599784906
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -147,4 +148,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

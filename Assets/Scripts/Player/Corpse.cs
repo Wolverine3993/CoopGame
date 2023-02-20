@@ -16,7 +16,7 @@ public class Corpse : MonoBehaviour
         Player2
     }
     [SerializeField] Player playerVal;
-    void Start()
+    void Awake()
     {
         respawnChoords = GameObject.Find("Respawn").GetComponent<Respawn>().GetRespawn(playerVal.ToString());
         collander = GetComponent<Collider2D>();
@@ -36,6 +36,7 @@ public class Corpse : MonoBehaviour
     public void OnInitiate(float xMove)
     {
         go = true;
+        rb.AddForce(new Vector2(xMove, 0));
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

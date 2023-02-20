@@ -10,7 +10,7 @@ public class PlayerDeath : MonoBehaviour
         if (collision.gameObject.CompareTag("Death"))
         {
             GameObject _corpse = GameObject.Instantiate(corpse, transform.position, Quaternion.Euler(0, 0, 0));
-            _corpse.GetComponent<Corpse>().OnInitiate(1);
+            _corpse.GetComponent<Corpse>().OnInitiate(Input.GetAxisRaw("Horizontal") * 5);
             Destroy(this.gameObject);
         }    
     }
