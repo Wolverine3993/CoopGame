@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     float _moveSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] float regoikljunme;
     float xInput;
     float yInput;
     public bool onPlayer = false;
@@ -82,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && collision.transform.position.y > transform.position.y + collander.bounds.size.y / 2) 
         {
             Rigidbody2D collRb = collision.gameObject.GetComponent<Rigidbody2D>();
-            collRb.mass = 0.00001f;
+            collRb.mass = regoikljunme;
             _moveSpeed = slowMoveSpeed;
             collision.gameObject.GetComponent<PlayerMovement>().onPlayer = true;
         }
