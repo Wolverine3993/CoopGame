@@ -21,9 +21,9 @@ public class GameManagerScript : MonoBehaviour
         if(currentScene > levelsUnlocked)
             levelsUnlocked = currentScene;
     }
-    public void ChangeScene(int scene)
+    public void NextLevel()
     {
-        currentScene = scene;
+        currentScene += 1;
     }
     public void LoadTitle()
     {
@@ -32,5 +32,13 @@ public class GameManagerScript : MonoBehaviour
     public void Continue()
     {
         currentScene = levelsUnlocked;
+    }
+    public void Restart()
+    {
+        SceneManager.LoadScene(sceneName: scenes[currentScene]);
+    }
+    public void LoadLevel(int scene)
+    {
+        currentScene = scene;
     }
 }

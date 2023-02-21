@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
     float addVelocityX;
     private delegate void HandleMove();
     HandleMove Move;
+    GameObject gameManager;
+    Animator anim;
+    bool canMove = true;
     enum PlayerNumber
     {
         Player1,
@@ -26,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        anim = GetComponent<Animator>();
+        gameManager = GameObject.Find("GameManager");
         _moveSpeed = moveSpeed;
         Move = Player1Move;
         if (playerNumber.ToString() == "Player2")
@@ -41,9 +46,12 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        Move();
-        if(TouchingGround() && yInput > 0 && canJump)
-            Jump();
+        if (canMove)
+        {
+            Move();
+            if (TouchingGround() && yInput > 0 && canJump)
+                Jump();
+        }
     }
     void Player1Move()
     {
@@ -119,6 +127,12 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("OneWayDoor"))
         {
             collision.GetComponent<OneWayWall>().IgnoreCollisionFunc(true, collander);
+        }if (collision.gameObject.CompareTag("EndDoor"))
+        {
+            transform.position = collision.transform.position;
+            anim.SetBool("EnterDoor", true);
+            rb.bodyType = RigidbodyType2D.Static;
+            canMove = false;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -127,5 +141,9 @@ public class PlayerMovement : MonoBehaviour
         {
             collision.GetComponent<OneWayWall>().IgnoreCollisionFunc(false, collander);
         }
+    }
+    void NextLevel()
+    {
+        gameManager.GetComponent<GameManagerScript>().NextLevel();
     }
 }

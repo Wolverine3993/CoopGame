@@ -14,4 +14,13 @@ public class PlayerDeath : MonoBehaviour
             Destroy(this.gameObject);
         }    
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Death"))
+        {
+            GameObject _corpse = GameObject.Instantiate(corpse, transform.position, Quaternion.Euler(0, 0, 0));
+            _corpse.GetComponent<Corpse>().OnInitiate(Input.GetAxisRaw("Horizontal") * 5);
+            Destroy(this.gameObject);
+        }
+    }
 }
