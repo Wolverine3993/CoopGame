@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -11,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     float _moveSpeed;
     [SerializeField] float jumpHeight;
     [SerializeField] LayerMask groundLayer;
-    [SerializeField] float regoikljunme;
+    [SerializeField] float mass;
     float xInput;
     float yInput;
     public bool onPlayer = false;
@@ -27,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
         Player2
     };
     [SerializeField] PlayerNumber playerNumber = new PlayerNumber();
+
     void Start()
     {
         _moveSpeed = moveSpeed;
@@ -83,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && collision.transform.position.y > transform.position.y + collander.bounds.size.y / 2) 
         {
             Rigidbody2D collRb = collision.gameObject.GetComponent<Rigidbody2D>();
-            collRb.mass = regoikljunme;
+            collRb.mass = mass;
             _moveSpeed = slowMoveSpeed;
             collision.gameObject.GetComponent<PlayerMovement>().onPlayer = true;
         }
@@ -116,5 +113,19 @@ public class PlayerMovement : MonoBehaviour
     public void SetVelocity(float objectVelX)
     {
         addVelocityX = objectVelX;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("OneWayDoor"))
+        {
+            collision.GetComponent<OneWayWall>().IgnoreCollisionFunc(true, collander);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("OneWayDoor"))
+        {
+            collision.GetComponent<OneWayWall>().IgnoreCollisionFunc(false, collander);
+        }
     }
 }
