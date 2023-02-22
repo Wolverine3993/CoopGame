@@ -378,12 +378,15 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
+"Assets/Scripts/ColouredDoor.cs"
+"Assets/Scripts/ColouredDoorController.cs"
 "Assets/Scripts/GameManagerScript.cs"
 "Assets/Scripts/OneWayWall.cs"
 "Assets/Scripts/Player/Corpse.cs"
 "Assets/Scripts/Player/PlayerDeath.cs"
 "Assets/Scripts/Player/PlayerMovement.cs"
 "Assets/Scripts/Respawn.cs"
+"Assets/Scripts/TitleScreen.cs"
 -langversion:9.0
 
 /deterministic

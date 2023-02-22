@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     GameObject gameManager;
     Animator anim;
     bool canMove = true;
+    Vector2 doorPos;
     enum PlayerNumber
     {
         Player1,
@@ -131,8 +132,16 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position = collision.transform.position;
             anim.SetBool("EnterDoor", true);
-            rb.bodyType = RigidbodyType2D.Static;
+            rb.gravityScale = 0;
             canMove = false;
+        }
+        if (collision.gameObject.CompareTag("ColouredDoor"))
+        {
+            if (collision.gameObject.GetComponent<ColouredDoor>().GetPlayer() == playerNumber.ToString())
+            {
+                collision.gameObject.GetComponent<ColouredDoor>().PlayerEnter(this.gameObject, playerNumber.ToString());
+                doorPos = collision.transform.position;
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -141,9 +150,21 @@ public class PlayerMovement : MonoBehaviour
         {
             collision.GetComponent<OneWayWall>().IgnoreCollisionFunc(false, collander);
         }
+        if (collision.gameObject.CompareTag("ColouredDoor"))
+        {
+            if(collision.gameObject.GetComponent<ColouredDoor>().GetPlayer() == playerNumber.ToString())
+            collision.gameObject.GetComponent<ColouredDoor>().PlayerExit(playerNumber.ToString());
+        }
     }
     void NextLevel()
     {
         gameManager.GetComponent<GameManagerScript>().NextLevel();
+    }
+    public void EnterDoor()
+    {
+        transform.position = doorPos;
+        canMove = false;
+        rb.gravityScale = 0;
+        anim.SetBool("EnterDoor", true);
     }
 }
