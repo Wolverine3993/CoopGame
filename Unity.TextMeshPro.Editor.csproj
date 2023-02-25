@@ -69,8 +69,8 @@
     <Compile Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Scripts\Editor\TMP_SpriteCharacterPropertyDrawer.cs" />
     <Compile Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Scripts\Editor\TMP_FontAsset_CreationMenu.cs" />
     <Compile Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Scripts\Editor\TMP_ColorGradientEditor.cs" />
-    <Compile Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Scripts\Editor\TMP_SerializedPropertyHolder.cs" />
     <Compile Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Scripts\Editor\TMP_TextAlignmentDrawer.cs" />
+    <Compile Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Scripts\Editor\TMP_SerializedPropertyHolder.cs" />
     <Compile Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Scripts\Editor\TMP_PostBuildProcessHandler.cs" />
     <Compile Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Scripts\Editor\TMPro_SortingLayerHelper.cs" />
     <Compile Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\Scripts\Editor\TMP_StyleSheetEditor.cs" />
@@ -804,13 +804,13 @@
       <Project>{9E44D4EC-5EBF-D4BA-C964-23431DD3DD2D}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="UnityEngine.TestRunner.csproj">
-      <Project>{AFD2DC0C-7F38-CE4D-0D6A-E8D3688043E2}</Project>
-      <Name>UnityEngine.TestRunner</Name>
-    </ProjectReference>
     <ProjectReference Include="UnityEditor.TestRunner.csproj">
       <Project>{F793762A-1192-6234-8F56-9F17BAF59FAF}</Project>
       <Name>UnityEditor.TestRunner</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.TestRunner.csproj">
+      <Project>{AFD2DC0C-7F38-CE4D-0D6A-E8D3688043E2}</Project>
+      <Name>UnityEngine.TestRunner</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

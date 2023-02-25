@@ -132,7 +132,8 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position = collision.transform.position;
             anim.SetBool("EnterDoor", true);
-            rb.gravityScale = 0;
+            rb.bodyType = RigidbodyType2D.Static;
+            rb.useFullKinematicContacts = true;
             canMove = false;
         }
         if (collision.gameObject.CompareTag("ColouredDoor"))
@@ -164,7 +165,8 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = doorPos;
         canMove = false;
-        rb.gravityScale = 0;
+        rb.bodyType = RigidbodyType2D.Static;
+        rb.useFullKinematicContacts = true;
         anim.SetBool("EnterDoor", true);
     }
 }

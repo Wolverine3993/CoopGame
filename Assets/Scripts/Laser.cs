@@ -6,10 +6,12 @@ public class Laser : MonoBehaviour
 {
     LineRenderer lineRenderer;
     Transform firePoint;
+    Transform particle;
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
         firePoint = transform.GetChild(0).transform;
+        particle = transform.GetChild(1).transform;
     }
     void Update()
     {
@@ -19,6 +21,7 @@ public class Laser : MonoBehaviour
     {
         lineRenderer.SetPosition(0, firePoint.position);
         lineRenderer.SetPosition(1, target);
+        particle.position = target;
     }
     Vector2 GetTarget()
     {
