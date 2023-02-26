@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] GameObject targetLaser;
+    Laser laser;
+    int players = 0;
+    [SerializeField] Sprite pressed, notPressed;
+    SpriteRenderer spriteRenderer;
     void Start()
     {
-        
+        laser = targetLaser.GetComponent<Laser>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if (players == 0)
+        {
+            laser.ChangeState(true);
+            spriteRenderer.sprite = notPressed;
+        }
+        else
+        {
+            laser.ChangeState(false);
+            spriteRenderer.sprite = pressed;
+        }
+    }
+    public void PlayerEnter()
+    {
+        players++;
+    }
+    public void PlayerExit()
+    {
+        players--;
     }
 }

@@ -14,6 +14,8 @@ public class GameManagerScript : MonoBehaviour
     }
     void Update()
     {
+        if(Input.GetKey(KeyCode.Escape) && currentScene != 0)
+            LoadTitle();
         if(scenes[currentScene] != SceneManager.GetActiveScene().name)
         {
             SceneManager.LoadScene(sceneName: scenes[currentScene]);

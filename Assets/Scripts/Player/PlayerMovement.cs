@@ -108,6 +108,12 @@ public class PlayerMovement : MonoBehaviour
             collision.gameObject.GetComponent<PlayerMovement>().onPlayer = true;
             collision.gameObject.GetComponent<PlayerMovement>().SetVelocity(rb.velocity.x);
         }
+        if(collision.gameObject.CompareTag("Corpse") && collision.transform.position.y > transform.position.y + collander.bounds.size.y / 2)
+        {
+            Corpse corpseScript = collision.gameObject.GetComponent<Corpse>();
+            corpseScript.SetVelocity(rb.velocity.x);
+            _moveSpeed = slowMoveSpeed;
+        }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -117,6 +123,12 @@ public class PlayerMovement : MonoBehaviour
             collRb.mass = 1f;
             _moveSpeed = moveSpeed;
             collision.gameObject.GetComponent<PlayerMovement>().onPlayer = false;
+        }
+        if (collision.gameObject.CompareTag("Corpse"))
+        {
+            Corpse corpseScript = collision.gameObject.GetComponent<Corpse>();
+            corpseScript.SetVelocity(0);
+            _moveSpeed = moveSpeed;
         }
     }
     public void SetVelocity(float objectVelX)
@@ -128,7 +140,8 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("OneWayDoor"))
         {
             collision.GetComponent<OneWayWall>().IgnoreCollisionFunc(true, collander);
-        }if (collision.gameObject.CompareTag("EndDoor"))
+        }
+        if (collision.gameObject.CompareTag("EndDoor"))
         {
             transform.position = collision.transform.position;
             anim.SetBool("EnterDoor", true);
@@ -144,6 +157,8 @@ public class PlayerMovement : MonoBehaviour
                 doorPos = collision.transform.position;
             }
         }
+        if (collision.gameObject.CompareTag("Button"))
+            collision.GetComponent<Button>().PlayerEnter();
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -156,6 +171,8 @@ public class PlayerMovement : MonoBehaviour
             if(collision.gameObject.GetComponent<ColouredDoor>().GetPlayer() == playerNumber.ToString())
             collision.gameObject.GetComponent<ColouredDoor>().PlayerExit(playerNumber.ToString());
         }
+        if (collision.gameObject.CompareTag("Button"))
+            collision.GetComponent<Button>().PlayerExit();
     }
     void NextLevel()
     {

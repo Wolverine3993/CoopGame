@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Corpse : MonoBehaviour
@@ -9,7 +10,9 @@ public class Corpse : MonoBehaviour
     Rigidbody2D rb;
     [SerializeField] KeyCode respawn;
     Vector2 respawnChoords;
+    bool touchedGround = false;
     bool go = false;
+    float addVelX = 0;
     enum Player
     {
         Player1,
@@ -31,43 +34,31 @@ public class Corpse : MonoBehaviour
                 GameObject clone = GameObject.Instantiate(playerPrefab, respawnChoords, Quaternion.Euler(0,0,0));
                 Destroy(this.gameObject);
             }
+            if(touchedGround)
+                rb.velocity = new Vector2(addVelX, rb.velocity.y);
         }
     }
-    public void OnInitiate(float xMove)
+    public void OnInitiate(Vector2 move)
     {
         go = true;
-        rb.AddForce(new Vector2(xMove, 0));
+        rb.velocity = move;
+    }
+    public void SetVelocity(float velX)
+    {
+        addVelX = velX;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Button"))
+            collision.GetComponent<Button>().PlayerEnter();
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Button"))
+            collision.GetComponent<Button>().PlayerExit();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && collision.transform.position.y > transform.position.y + collander.bounds.size.y / 2)
-        {
-            Rigidbody2D collRb = collision.gameObject.GetComponent<Rigidbody2D>();
-            collRb.mass = 0.00001f;
-            collision.gameObject.GetComponent<PlayerMovement>().onPlayer = true;
-        }
-    }
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player") && collision.transform.position.y < transform.position.y + collander.bounds.size.y / 2)
-        {
-            Rigidbody2D collRb = collision.gameObject.GetComponent<Rigidbody2D>();
-            collRb.mass = 1f;
-            collision.gameObject.GetComponent<PlayerMovement>().onPlayer = false;
-        }
-        else if (collision.gameObject.CompareTag("Player") && collision.transform.position.y > transform.position.y + collander.bounds.size.y / 2)
-        {
-            collision.gameObject.GetComponent<PlayerMovement>().onPlayer = true;
-            collision.gameObject.GetComponent<PlayerMovement>().SetVelocity(rb.velocity.x);
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Rigidbody2D collRb = collision.gameObject.GetComponent<Rigidbody2D>();
-            collRb.mass = 1f;
-            collision.gameObject.GetComponent<PlayerMovement>().onPlayer = false;
-        }
+        touchedGround = true;
     }
 }
