@@ -107,7 +107,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  mass: 0
+  mass: 0.25
   onPlayer: 0
   playerNumber: 1
 --- !u!50 &1689831069051785207

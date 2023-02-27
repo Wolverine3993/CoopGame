@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6468250400323382636}
   - component: {fileID: 6468250400323382637}
   - component: {fileID: 6468250400323382638}
-  - component: {fileID: 6468250400323382635}
   - component: {fileID: 957385208}
+  - component: {fileID: 2071906167003236766}
   m_Layer: 3
   m_Name: LaserCannonRight
   m_TagString: Untagged
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 6468250401045133211}
   - {fileID: 6468250401355637892}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6468250400323382637
 SpriteRenderer:
@@ -192,20 +192,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &6468250400323382635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6468250400323382639}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93eaa93524feda84bbc63c7290e1e2b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  on: 1
-  startOn: 1
 --- !u!61 &957385208
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -232,6 +218,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2071906167003236766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6468250400323382639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9908ad699fe145e41b2a7ccb0636be13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  on: 1
+  startOn: 1
+  Direction: 3
 --- !u!1 &6468250401045133212
 GameObject:
   m_ObjectHideFlags: 0

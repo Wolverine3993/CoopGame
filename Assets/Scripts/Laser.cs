@@ -7,12 +7,31 @@ public class Laser : MonoBehaviour
     LineRenderer lineRenderer;
     Transform firePoint;
     Transform particle;
-    Collider2D collider;
+    Collider2D coll;
     [SerializeField] bool on = true;
     [SerializeField] bool startOn = true;
+    enum _dir
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
+    [SerializeField] _dir Direction;
+    delegate Vector2 Target();
+    Target GetTarget;
     void Start()
     {
-        collider = GetComponent<Collider2D>(); 
+        switch (Direction.ToString())
+        {
+            case "Right":
+                GetTarget = GetTargetRight;
+                break;
+            case "Down":
+                GetTarget = GetTargetDown;
+                break;
+        }
+        coll = GetComponent<Collider2D>();
         lineRenderer = GetComponent<LineRenderer>();
         firePoint = transform.GetChild(0).transform;
         particle = transform.GetChild(1).transform;
@@ -35,13 +54,21 @@ public class Laser : MonoBehaviour
         lineRenderer.SetPosition(1, target);
         particle.position = target;
     }
-    Vector2 GetTarget()
+    Vector2 GetTargetRight()
     {
         RaycastHit2D xPosTar = Physics2D.Raycast(firePoint.position, Vector2.right);
-        RaycastHit2D raycastHit = Physics2D.BoxCast(new Vector2(firePoint.position.x + 0.1f, firePoint.position.y), new Vector2(0.01f, collider.bounds.size.y), 0, Vector2.right, xPosTar.distance);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(new Vector2(firePoint.position.x + 0.1f, firePoint.position.y), new Vector2(0.01f, coll.bounds.size.y * 0.75f), 0, Vector2.right, xPosTar.distance);
         if (raycastHit.collider.gameObject.CompareTag("Player"))
             raycastHit.collider.gameObject.GetComponent<PlayerDeath>().Die();
         return new Vector2(raycastHit.point.x, transform.position.y);
+    }
+    Vector2 GetTargetDown()
+    {
+        RaycastHit2D yPosTar = Physics2D.Raycast(firePoint.position, Vector2.down);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(new Vector2(firePoint.position.x, firePoint.position.y - 0.1f), new Vector2(coll.bounds.size.x * 0.75f, 0.01f), 0, Vector2.down, yPosTar.distance);
+        if (raycastHit.collider.gameObject.CompareTag("Player"))
+            raycastHit.collider.gameObject.GetComponent<PlayerDeath>().Die();
+        return new Vector2(transform.position.x, raycastHit.point.y);
     }
     public void ChangeState(bool state)
     {
