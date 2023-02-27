@@ -29,12 +29,12 @@ public class Corpse : MonoBehaviour
     {
         if (go)
         {
-            if (Input.GetKey(respawn)) 
-            { 
-                GameObject clone = GameObject.Instantiate(playerPrefab, respawnChoords, Quaternion.Euler(0,0,0));
+            if (Input.GetKey(respawn))
+            {
+                GameObject clone = GameObject.Instantiate(playerPrefab, respawnChoords, Quaternion.Euler(0, 0, 0));
                 Destroy(this.gameObject);
             }
-            if(touchedGround)
+            if (touchedGround)
                 rb.velocity = new Vector2(addVelX, rb.velocity.y);
         }
     }

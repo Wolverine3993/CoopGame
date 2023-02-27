@@ -31,7 +31,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        gameManager = GameObject.Find("GameManager");
+        gameManager = GameObject.Find("GameManager(Clone)");
+        gameManager.GetComponent<GameManagerScript>().CanRestart(true);
         _moveSpeed = moveSpeed;
         Move = Player1Move;
         if (playerNumber.ToString() == "Player2")
@@ -110,8 +111,16 @@ public class PlayerMovement : MonoBehaviour
         }
         if(collision.gameObject.CompareTag("Corpse") && collision.transform.position.y > transform.position.y + collander.bounds.size.y / 2)
         {
+            collision.rigidbody.mass = mass;
             Corpse corpseScript = collision.gameObject.GetComponent<Corpse>();
             corpseScript.SetVelocity(rb.velocity.x);
+            _moveSpeed = slowMoveSpeed;
+        }
+        if (collision.gameObject.CompareTag("PushBlock") && collision.transform.position.y > transform.position.y + collander.bounds.size.y / 2)
+        {
+            collision.rigidbody.mass = mass;
+            Box boxScript = collision.gameObject.GetComponent<Box>();
+            boxScript.SetVelocity(rb.velocity.x);
             _moveSpeed = slowMoveSpeed;
         }
     }
@@ -126,8 +135,16 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Corpse"))
         {
+            collision.rigidbody.mass = 1;
             Corpse corpseScript = collision.gameObject.GetComponent<Corpse>();
             corpseScript.SetVelocity(0);
+            _moveSpeed = moveSpeed;
+        }
+        if (collision.gameObject.CompareTag("PushBlock"))
+        {
+            collision.rigidbody.mass = 1;
+            Box boxScript = collision.gameObject.GetComponent<Box>();
+            boxScript.SetVelocity(0);
             _moveSpeed = moveSpeed;
         }
     }
@@ -143,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("EndDoor"))
         {
+            gameManager.GetComponent<GameManagerScript>().CanRestart(false);
             transform.position = collision.transform.position;
             anim.SetBool("EnterDoor", true);
             rb.bodyType = RigidbodyType2D.Static;
@@ -180,6 +198,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void EnterDoor()
     {
+        gameManager.GetComponent<GameManagerScript>().CanRestart(false);
         transform.position = doorPos;
         canMove = false;
         rb.bodyType = RigidbodyType2D.Static;

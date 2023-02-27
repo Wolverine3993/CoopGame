@@ -9,6 +9,8 @@ TagManager:
   - ColouredDoor
   - EndDoor
   - Button
+  - Corpse
+  - PushBlock
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - Player1
   - Player2
   - Ignore
-  - 
+  - Box
   - 
   - 
   - 

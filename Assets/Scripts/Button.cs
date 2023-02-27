@@ -4,26 +4,33 @@ using UnityEngine;
 
 public class Button : MonoBehaviour
 {
-    [SerializeField] GameObject targetLaser;
+    [SerializeField] GameObject[] targetLaser;
     Laser laser;
     int players = 0;
     [SerializeField] Sprite pressed, notPressed;
     SpriteRenderer spriteRenderer;
     void Start()
     {
-        laser = targetLaser.GetComponent<Laser>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
     void Update()
     {
         if (players == 0)
         {
-            laser.ChangeState(true);
+            foreach(GameObject gameObject in targetLaser)
+            {
+                laser = gameObject.GetComponent<Laser>();
+                laser.ChangeState(true);
+            }
             spriteRenderer.sprite = notPressed;
         }
         else
         {
-            laser.ChangeState(false);
+            foreach (GameObject gameObject in targetLaser)
+            {
+                laser = gameObject.GetComponent<Laser>();
+                laser.ChangeState(false);
+            }
             spriteRenderer.sprite = pressed;
         }
     }

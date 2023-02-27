@@ -391,6 +391,7 @@
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/Unity.VSCode.Editor.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aEDbg.dag/UnityEngine.UI.ref.dll"
+"Assets/Scripts/Box.cs"
 "Assets/Scripts/Button.cs"
 "Assets/Scripts/ColouredDoor.cs"
 "Assets/Scripts/ColouredDoorController.cs"
@@ -401,6 +402,10 @@
 "Assets/Scripts/Player/PlayerDeath.cs"
 "Assets/Scripts/Player/PlayerMovement.cs"
 "Assets/Scripts/Respawn.cs"
+"Assets/Scripts/Saving/Data.cs"
+"Assets/Scripts/Saving/Saving.cs"
+"Assets/Scripts/Silly.cs"
+"Assets/Scripts/SpawnManager.cs"
 "Assets/Scripts/TitleScreen.cs"
 -langversion:9.0
 
