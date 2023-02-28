@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     HandleMove Move;
     GameObject gameManager;
     Animator anim;
-    bool canMove = true;
+    public bool canMove = true;
     Vector2 doorPos;
     enum PlayerNumber
     {

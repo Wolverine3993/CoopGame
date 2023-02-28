@@ -13,6 +13,7 @@ public static class Saving
         Data data = new Data(gameManager);
         formatter.Serialize(stream, data);
         stream.Close();
+        Debug.Log(path);
     }
 
     public static Data LoadUnlocked()
@@ -23,6 +24,7 @@ public static class Saving
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
             Data data = formatter.Deserialize(stream) as Data;
+            Debug.Log(data.levelsUnlocked);
             stream.Close();
             return data;
         }

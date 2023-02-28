@@ -13,6 +13,7 @@ public class Corpse : MonoBehaviour
     bool touchedGround = false;
     bool go = false;
     float addVelX = 0;
+    public bool canRespawn = true;
     enum Player
     {
         Player1,
@@ -29,7 +30,7 @@ public class Corpse : MonoBehaviour
     {
         if (go)
         {
-            if (Input.GetKey(respawn))
+            if (Input.GetKey(respawn) && canRespawn)
             {
                 GameObject clone = GameObject.Instantiate(playerPrefab, respawnChoords, Quaternion.Euler(0, 0, 0));
                 Destroy(this.gameObject);
