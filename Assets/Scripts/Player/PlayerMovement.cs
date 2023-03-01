@@ -119,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("PushBlock") && collision.transform.position.y > transform.position.y + collander.bounds.size.y / 2)
         {
             collision.rigidbody.mass = mass;
+            collision.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(1.1f, 1);
             Box boxScript = collision.gameObject.GetComponent<Box>();
             boxScript.SetVelocity(rb.velocity.x);
             _moveSpeed = slowMoveSpeed;
@@ -143,6 +144,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("PushBlock"))
         {
             collision.rigidbody.mass = 1;
+            collision.gameObject.GetComponent<BoxCollider2D>().size = new Vector2(1, 1);
             Box boxScript = collision.gameObject.GetComponent<Box>();
             boxScript.SetVelocity(0);
             _moveSpeed = moveSpeed;
